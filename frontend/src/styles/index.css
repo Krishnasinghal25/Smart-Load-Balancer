@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #05060d;
+  color: #d6e4ff;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Cyberpunk background: deep gradient + animated neon grid ─────────────── */
+.cyber-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(168, 85, 247, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at 90% 10%, rgba(0, 240, 255, 0.14), transparent 55%),
+    radial-gradient(900px 700px at 50% 120%, rgba(255, 43, 214, 0.12), transparent 60%),
+    #05060d;
+}
+
+.cyber-grid {
+  position: fixed;
+  inset: -2px;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+  animation: grid-pan 3s linear infinite;
+}
+
+/* Fine scanline overlay for that CRT feel */
+.scanlines::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.5;
+}
+
+/* ── Glass panels ─────────────────────────────────────────────────────────── */
+.glass {
+  background: linear-gradient(160deg, rgba(18, 24, 44, 0.72), rgba(8, 11, 22, 0.72));
+  border: 1px solid rgba(0, 240, 255, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.35), transparent 40%, transparent 60%, rgba(255, 43, 214, 0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.glass-sm {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  border-radius: 12px;
+}
+
+/* ── Neon text ────────────────────────────────────────────────────────────── */
+.font-display { font-family: 'Orbitron', sans-serif; letter-spacing: 0.04em; }
+.neon-text-cyan    { color: #7df9ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); }
+.neon-text-magenta { color: #ff7ae0; text-shadow: 0 0 8px rgba(255, 43, 214, 0.6); }
+.neon-text-purple  { color: #c99dff; text-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
+.neon-text-lime    { color: #9dff8a; text-shadow: 0 0 8px rgba(57, 255, 20, 0.6); }
+
+/* ── Circuit-breaker chips ────────────────────────────────────────────────── */
+.cb-CLOSED    { color: #39ff14; text-shadow: 0 0 6px rgba(57,255,20,0.5); }
+.cb-OPEN      { color: #ff2e63; text-shadow: 0 0 6px rgba(255,46,99,0.5); animation: flicker 3s infinite; }
+.cb-HALF_OPEN { color: #ffb800; text-shadow: 0 0 6px rgba(255,184,0,0.5); }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(rgba(0, 240, 255, 0.4), rgba(255, 43, 214, 0.4));
+  border-radius: 8px;
+}
+
+/* Reusable neon divider */
+.neon-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.5), transparent);
+}
+
+.tag {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}

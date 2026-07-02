@@ -1,0 +1,13 @@
+{
+  "name": "neon-lb-backend-service",
+  "version": "1.0.0",
+  "description": "Demo backend service for the neon load balancer",
+  "type": "module",
+  "main": "backend.js",
+  "scripts": {
+    "start": "node backend.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

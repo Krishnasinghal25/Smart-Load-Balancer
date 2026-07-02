@@ -1,0 +1,30 @@
+services:
+  load-balancer:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: neon-lb
+    ports:
+      - "3030:3030"
+    environment:
+      - LB_PORT=3030
+      - SPAWN_BACKENDS=true
+      - SIMULATE_TRAFFIC=true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3030/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  dashboard:
+    build: ./frontend
+    container_name: neon-lb-dashboard
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_WS_URL=ws://localhost:3030/metrics
+      - VITE_API_URL=http://localhost:3030
+    depends_on:
+      - load-balancer
+    restart: unless-stopped
